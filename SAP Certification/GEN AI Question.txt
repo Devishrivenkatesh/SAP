@@ -1,0 +1,200 @@
+TASK 1 : Designing an Initial Prompt and Structuring for Core Feedback Insights (Estimated Time: 25minutes)
+
+1.1 -
+Objective
+Develop a foundational prompt template that accurately extracts essential customer
+feedback details into a structured JSON format, ready for immediate departmental routing.
+Task 1.1: Design and Implement the Base Prompt (Prompt Template Version 1.0.0)
+The customer service, product, and logistics teams need a quick, standardized way to
+understand the core of a customer’s message. Create a new prompt template named
+feedback-analyzer-CERT####, version 1.0.0 in SAP’s generative AI hub to identify the main
+issue, sentiment, and any referenced product or order details.
+1. Define appropriate System and User roles.
+2. The System role must clearly state the LLM’s primary task (customer feedback analysis)
+and the desired output schema.
+3. The User role should contain instructions for processing the input message.
+4. Add a variable user_email_placeholder where you will provide the input message.
+5. The output MUST be a JSON object containing the following keys:
+a. Feedback_ID: string (e.g., AUTO-FEED-001)
+b. Main_Category: enum (e.g., Product Issue, Delivery Problem, Return/Refund, General
+Inquiry, Website/App Issue, Account Issue)
+c. Customer_Sentiment: enum (Very Negative, Negative, Neutral, Positive, Very Positive)
+d. Issue_Summary: string (concise summary, max 100 words)
+e. Order_Reference_ID: string (e.g., #GGX12345, N/A if not present)
+f. Product_Reference: string (e.g., “Smartwatch Model X”, N/A if not present)
+g. Suggested_Department: enum (Customer Service, Product Team, Logistics, Returns
+Processing, Technical Support
+6. Make sure the JSON response contains JSON output only with no additional text or
+formatting.
+7. To develop an effective prompt template:
+a. You can use the prompt editor and sample messages (located at the end of the
+document) to create and refine multiple versions of the prompts. You can save these
+prompts for future reference.
+b. Finally, select the most suitable version for use as the template, feedback-analyzerCERT#### version 1.0.0.
+Ensure that you save the prompt template with proper name and version number.
+Expected outcome: A new prompt template with the name feedback-analyzer-CERT####,
+version 1.0.0 with appropriate prompts in the system and user roles and a variable based on
+the above instructions
+Task 1.2: Implement Enterprise-Grade Prompt Hardening (Prompt Template Version
+1.1.0)
+Update your feedback-analyzer-CERT#### template to version 1.1.0 to implement prompt
+hardening by adding an “IMPORTANT” section within the System role.
+This section must contain explicit negative instructions that strictly control LLM’s behavior by
+forbidding actions that would:
+● Compromise its dedicated focus on customer feedback analysis.
+● Lead to the unnecessary disclosure of any customer’s personal data, beyond the
+Order_Reference_ID or Product_Reference fields explicitly required in the JSON output.
+● Result in a response that is not clean, parseable JSON, or unsuitable for automated
+systems.
+Expected outcome: The updated prompt template with similar name feedback-analyzerCERT####, and a new version 1.1.0 with an additional section for prompt hardening based on
+the above instructions.
+Task 1.3: Capture the Baseline Output for Evolution (Prompt Template Version 1.2.0)
+Run your feedback-analyzer-CERT#### template (version 1.1.0) in the Prompt Editor using
+the following sample customer email in the user_email_placeholder variable.
+Once the JSON response is generated, copy the JSON output and paste it into the Assistant
+role of your template and save it to version 1.2.0. This will serve as a baseline to track how
+your solution improves.
+
+Note:
+When copying the response for this and all subsequent tasks, you can either select
+the text manually or use the copy button in the interface. Both methods provide
+the JSON format required for the next steps.
+
+Subject: My recent order #GGX56789 - missing item
+Hi,
+I received my order #GGX56789 today, but the 'Wireless Headphones'
+listed on the invoice were not in the box. I am very frustrated as I
+needed them for a trip this weekend. Please send the missing item or
+issue a refund immediately. This is unacceptable.
+
+Note:
+In case you are unable to execute the prompt due to a greyed out Run button, click
+all the input fields (system, user, and variable fields) and check again. You can also
+try using another model to execute the prompt.
+Expected outcome: The updated prompt template with a similar name feedback-analyzerCERT####, and a new version 1.2.0 with an additional Assistant role, based on the above
+instructions.
+
+--------------------------------------
+Task 2 Refining Accuracy and Adding Semantic Depth for Problem Resolution (Estimated Time: 20minutes)
+
+Objective
+Improve the LLM’s ability to accurately categorize complex feedback and extract specific,
+actionable details crucial for resolution, not just categorization.
+Task 2.1: Address Ambiguous Categorization (Prompt Template Version 2.0.0)
+While knowing the Main_Category is good, service agents still have to read the full summary
+to understand what the customer wants (e.g., a replacement, a call, a technical fix). You need
+to extract specific resolution requests or critical details directly.
+Update your feedback-analyzer-CERT#### template to version 2.0.0. Modify the output
+schema to include a new field: Actionable_Resolution_Points (an array of strings) to extract
+1-3 distinct, concise points detailing what the customer explicitly requests or what specific
+technical detail needs addressing for resolution.
+Expected Outcome: The updated prompt template with a similar name feedback-analyzerCERT####, and a new version 2.0.0 with the additional new Actionable_Resolution_Points
+field based on the above instructions.
+Task 2.2: Extract Actionable Resolution Details (Prompt Template Version 2.1.0)
+Instructions: Run your feedback-analyzer-CERT#### template (version 2.0.0) in the Prompt
+Editor using the following sample feedback. Once the JSON response is generated, copy and
+save this specific JSON output into the Assistant role of this template version. Save it to a new
+template version 2.1.0. This validates your refinement.
+Subject: Glitch on checkout page, Order #GGX98765 stuck
+Hi Support,
+I was trying to complete my purchase for Order #GGX98765 (items:
+"Portable Speaker" and "Travel Adapter"), but the website's checkout
+page crashed after I entered my payment details. Now the order is
+stuck, and I can't try again. I need someone to clear the pending
+order and allow me to repurchase, or help me complete it.
+Expected outcome: The updated prompt template with a similar name feedback-analyzerCERT####, and a new version 2.1.0 with an additional Assistant role, based on the above
+instructions.
+
+------------------------------------------------------------
+
+Task 3 : Evaluating and Selecting the Optimal LLM for Production (Estimated Time: 20 mins)
+
+Objective: Systematically evaluate different LLMs using your fully refined prompt template.
+Based on this evaluation, you can configure your solution to use the optimal model for
+production deployment.
+Task 3.1: Perform Comparative Model Evaluation and Selection
+Using your template (feedback-analyzer-CERT#### version 2.0.0), run the following sample
+customer feedback messages three times each time using a different LLM model available in
+the generative AI hub (e.g., GPT-4o Mistral AI, Gemini)
+Note:
+In case a particular model is not working or is not available, select another model
+and continue. Your result will not be impacted by unavailability of a particular
+model.
+Feedback Message (Delivery Problem - Neutral/Negative):
+Subject: Delivery confusion for order #GGX33445
+My order #GGX33445 (a "Premium Coffee Maker") was marked as delivered
+two days ago, but I haven't received it. My neighbor also didn't get
+it. The tracking link just says "delivered." Can you please
+investigate with the shipping company and give me an update?
+1. After executing your prompt with each model, carefully review the generated JSON output
+for accuracy, completeness, and adherence to the specified format to ensure the most
+accurate customer feedback analysis. Pay close attention to Main_Category,
+Customer_Sentiment, Suggested_Department, and Actionable_Resolution_Points.
+2. To do this, run your template with each model for the given Feedback Message and review
+the JSON output. Repeat the same for the next model.
+3. After comparing the results decide which LLM performs best with your current setup.
+4. Copy the JSON output for your selected model using Feedback Message and save it to the
+Assistant role of your feedback-analyzer-CERT#### template to new version 2.2.0. Add
+the “Optimal Model Output" text on the top of the saved response . This text is important
+to track your results.
+Expected outcome:
+The updated prompt template with a similar name feedback-analyzer-CERT####, and a new
+version 2.2.0 with an additional Assistant role based on the above instructions.
+
+-------------------------------------------------------------------------------
+Task 4 : Creating an Advanced Multi-Issue Extraction & Prioritization Template (Estimated Time: 25minutes)
+
+Objective
+Enhance the solution to handle multiple distinct issues within a single customer feedback
+message, requiring a more complex JSON structure. Introduce a “Priority” field for each
+identified issue.
+Task 4.1: Implement Multi-Issue Support & Prioritization (Prompt Template Version
+3.0.0)
+Customers often voice several distinct complaints or questions within a single
+communication , for example a product defect, a shipping delay, and a billing question all in
+one email. The current schema is designed for a single Main_Category per feedback. You
+need to identify all distinct issues and also assign a priority to each to help agents triage
+effectively.
+Update your feedback-analyzer-CERT####, template version 2.0.0 to a new version, 3.0.0.
+● Modify the output JSON schema significantly. The JSON will now comprise two levels, a
+header level and a line item level. The header level will consist of the fields Feedback_ID
+and Overall_Customer_Sentiment (representing the general tone of the entire message).
+● The line item level should now be structured as an array where each element in the array is
+a separate JSON object representing a distinct customer issue. Each Issue element MUST
+contain:
+- Issue_ID: string (e.g., “ISSUE-A”, “ISSUE-B”) - a unique identifier for each distinct issue
+found within the current feedback.
+- Main_Category: enum (same as before: Product Issue, Delivery Problem, Return/
+Refund, General Inquiry, Website/App Issue, Account Issue)
+- Customer_Sentiment_for_Issue: enum (Very Negative, Negative, Neutral, Positive, Very
+Positive) - specific to this particular issue.
+Issue_Summary: string (concise summary for this specific issue, max 75 words)
+- Order_Reference_ID: string (e.g., #GGX12345, N/A if not present, specific to this issue)
+- Product_Reference: string (e.g., “Smartwatch Model X”, N/A if not present, specific to
+this issue)
+- Actionable_Resolution_Points: array of strings (1-3 distinct, concise points detailing
+what is needed for this issue’s resolution).
+- Priority: enum (High, Medium, Low) - Based on the urgency, impact on the customer,
+and severity of this specific issue
+Expected outcome:
+The updated prompt template with a similar name feedback-analyzer-CERT####, and a new
+version 3.0.0 with updated prompts for the new JSON format in the System and User role.
+Task 4.2: Capture Complex Multi-Issue Output for Validation (Prompt Template Version
+3.1.0)
+Run your feedback-analyzer-CERT#### template (version 3.0.0) in the Prompt Editor using
+the following complex sample feedback. Once the JSON response is generated, copy and save
+this specific JSON output into the Assistant role of this template version 3.1.0. This validates
+your ability to handle multi-issue extraction.
+Subject: Problems with my recent order and account!
+Hello,
+I'm writing because I have two serious issues. First, the "Smart
+Coffee Maker" (Order #GGX88990) I bought is defective; it keeps
+leaking. I want a replacement or a full refund. Second, my online
+account has been showing incorrect order history for months, and I
+can't update my shipping address. This is very frustrating, and I've
+tried calling customer service but couldn't get through. Please fix my
+account and send instructions for the coffee maker return.
+Expected outcome:
+The updated prompt template with a similar name feedback-analyzer-CERT####, and a new
+version 3.1.0 with an additional Assistant role, based on the above instructions.
+
